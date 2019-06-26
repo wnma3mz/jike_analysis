@@ -1,0 +1,3 @@
+无聊的我做了一个叫做“瓦数”的插件，它可以计算你一共被瓦总点了多少个赞。“瓦数”越高，则说明…………什么也说明不了。Just for fun.
+
+https://github.com/leadream/wowIndex
