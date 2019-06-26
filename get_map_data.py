@@ -7,13 +7,19 @@ import numpy as np
 import pandas as pd
 import requests
 
-from city_code import PROVINCES, PROVINCES_WITH_CITIES
+from data.city_code import PROVINCES, PROVINCES_WITH_CITIES
 
 with open("region.sql.txt", 'r', encoding="utf-8") as f:
     location_data = f.readlines()[15:]
 
 
 def get_location2(city):
+    """
+    根据本地的sql文件获取经纬度
+    @params city: 城市名
+
+    @return value_str: 经纬度的字符串
+    """
     for line in location_data:
         if city in line:
             line_lst = line.split(", ")
@@ -25,6 +31,13 @@ def get_location2(city):
 
 
 def get_location(city, province):
+    """
+    根据百度api获取经纬度
+    @params city： 城市
+    @params province：省份
+
+    @return value_str: 经纬度的字符串
+    """
     url = 'http://api.map.baidu.com/geocoder?address={}&output=json&key=37492c0ee6f924cb5e934fa08c6b1676&city=%E5%8C%97%E4%BA%AC%E5%B8%82'
 
     city_url = url.format(city)
@@ -45,6 +58,13 @@ def get_location(city, province):
 
 
 def get_city(province, line):
+    """
+    根据省份与编码获取城市与经纬度
+    @params province：省份
+    @params line: [id_, "country", "city", "province"]
+
+    @return city, 经纬度字符串
+    """
     for city_ in PROVINCES_WITH_CITIES[province]["cities"]:
         if line[2] in city_.keys():
             city = city_[line[2]]
@@ -57,6 +77,16 @@ def get_city(province, line):
 
 
 def get_data_lst(data):
+    """
+    初始化data_lst，将位置信息添加进列表
+    @params data: json数据
+
+    @return data_lst = 
+    [
+        [id_, "country", "city", "province"]
+        ...
+    ]
+    """
     data_lst = []
     for item in data:
         id_ = item["id"]
@@ -66,9 +96,9 @@ def get_data_lst(data):
         user = item["user"]
         tmp_lst = [id_]
         for col in col_lst:
-            try:
+            if col in user.keys():
                 tmp_lst.append(user[col])
-            except:
+            else:
                 tmp_lst.append('')
 
         data_lst.append(tmp_lst)
@@ -76,6 +106,15 @@ def get_data_lst(data):
 
 
 def get_res_data(data):
+    """
+    获取单个json文件的经纬度数据
+    @params data: json数据
+
+    @return data_lst [
+        [id_, "country", "city", "province", location]
+        ...
+    ]
+    """
     data_lst = get_data_lst(data)
 
     for index, line in enumerate(data_lst):
@@ -96,7 +135,10 @@ def get_res_data(data):
 
 
 def get_res_lst():
-
+    """
+    获取当前文件夹下所有json文件的发帖经纬度数据
+    @return data_lst的叠加
+    """
     flst = os.listdir()
     ff = list(filter(lambda f: os.path.isdir(f) and '2019' in f, flst))
     ff.sort(key=lambda item: item.split('.')[0].split('-')[-1])
@@ -115,19 +157,20 @@ def get_res_lst():
     return all_lst
 
 
-col_lst = ["country", "city", "province"]
-code_lst = [item[0] for item in PROVINCES]
+if __name__ == '__main__':
+    col_lst = ["country", "city", "province"]
+    code_lst = [item[0] for item in PROVINCES]
 
-all_lst = get_res_lst()
+    all_lst = get_res_lst()
 
-count_frq = dict()
-for item in all_lst:
-    if item[0] in count_frq.keys():
-        count_frq[item[0]][-1] += 1
-    elif item[2] != "" and item[2] != "-1" and item[3] != "":
-        count_frq[item[0]] = item[1:] + [1]
+    count_frq = dict()
+    for item in all_lst:
+        if item[0] in count_frq.keys():
+            count_frq[item[0]][-1] += 1
+        elif item[2] != "" and item[2] != "-1" and item[3] != "":
+            count_frq[item[0]] = item[1:] + [1]
 
-df = pd.DataFrame(
-    count_frq.values(),
-    columns=["country", "city", "province", "location", "count"])
-df.to_excel("map.xlsx", encoding="utf-8", index=None)
+    df = pd.DataFrame(
+        count_frq.values(),
+        columns=["country", "city", "province", "location", "count"])
+    df.to_excel("map.xlsx", encoding="utf-8", index=None)
