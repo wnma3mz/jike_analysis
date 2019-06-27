@@ -41,7 +41,7 @@ def get_title_lst(num):
                 break
         fpath = os.listdir(os.path.join(f, dir_name))
 
-        title_lst += list(map(lambda f: f.split('.')[0].split('-'), fpath))
+        title_lst += list(map(lambda f: f.split('.')[0].split('-')[0], fpath))
 
     title_dict = Counter(title_lst).items()
     res_lst = list(filter(lambda item: item[1] >= num, title_dict))
@@ -51,7 +51,8 @@ def get_title_lst(num):
 
 def plot_main(lst, label=False):
     """
-    绘制图片
+    绘制柱状图图片
+    @params lst: 包含横纵坐标的二维列表，第一列为横坐标，第二列为纵坐标
     """
     plt.cla()
 
@@ -69,13 +70,15 @@ def plot_main(lst, label=False):
     plt.show()
 
 
-def one_time(x_lst):
+def one_time(x_lst, fpath='2019-06-19'):
     """
-    获取某个日期文件夹的数据
-    @params x_lst:
+    绘制单个日期文件夹的数据
+    @params x_lst: topic的list
+    @params fpath: 日期文件夹
+
+    @return None, 直接绘制图片
     """
     data_dict = {name: 0 for name in x_lst}
-    fpath = '2019-06-19'
     f_lst = os.listdir(fpath)
     for f in f_lst:
         if f.endswith('.json'):
@@ -96,7 +99,11 @@ def one_time(x_lst):
 
 def more_time(x_lst, ff_lst):
     """
-    获取多个日期文件夹的数据
+    绘制多个日期文件夹的数据，折线图。横坐标为时间，纵坐标为关注粉丝量
+    @params x_lst: topic的list
+    @params ff_lst: 排序好的日期文件夹列表
+
+    @return None, 直接绘制图片
     """
     data_dict = {name: [] for name in x_lst}
 
@@ -111,11 +118,11 @@ def more_time(x_lst, ff_lst):
                     if title in x_lst and len(data_dict[title]) == num_count:
                         data_dict[title].append(
                             item['topic']['subscribersCount'])
-
+    # return data_dict
     plt.cla()
     for key, value in data_dict.items():
         # if value[0] != 1000002:
-        if value[0] < 100000:
+        if len(value) == len(ff_lst) and value[0] < 100000:
             plt.plot(ff_lst, value, 'o-', label=key)
             for a, b in enumerate(value):
                 plt.text(
@@ -132,8 +139,14 @@ def more_time(x_lst, ff_lst):
     plt.show()
 
 
-ff_lst, res_lst = get_title_lst(num=4)
-x_lst = get_column_data(res_lst, 0)
-# one_time(x_lst)
-# more_time(x_lst, ff_lst)
-# plot_main(res_lst)
+if __name__ == '__main__':
+    """
+    Note:
+    1. 运行环境为根目录
+    2. 这里值得一提的是，topic关注量最大值为10000002
+    """
+    ff_lst, res_lst = get_title_lst(num=4)
+    x_lst = get_column_data(res_lst, 0)
+    # one_time(x_lst)
+    # more_time(x_lst, ff_lst)
+    # plot_main(res_lst)
