@@ -9,6 +9,7 @@ import requests
 
 from data.city_code import PROVINCES, PROVINCES_WITH_CITIES
 
+# 读取经纬度数据文件
 with open("region.sql.txt", 'r', encoding="utf-8") as f:
     location_data = f.readlines()[15:]
 

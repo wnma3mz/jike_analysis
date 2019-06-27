@@ -78,6 +78,12 @@ def plot_main(lst, label=False):
 
 
 def topic_Count(f, fpath):
+    """
+    提取topic和subscribersCount构成字典
+
+    @params f: json文件名
+    @params fpath: json文件所在目录
+    """
     if f.endswith('.json'):
         with open(os.path.join(fpath, f), 'r') as f:
             data = json.load(f)['data']
@@ -86,6 +92,13 @@ def topic_Count(f, fpath):
 
 
 def filter_dict(topic_set, data):
+    """
+    去除重复的topic，保留最大的subscribersCount
+    @params topic_set：话题集合（不重复）
+    @params data：所有话题的数据，经过topic_Count函数得到的
+
+    @return lst: 将data中的话题数据进行去重
+    """
     lst = []
     for topic in topic_set:
         temp_list = list(filter(lambda x: x['topic'] == topic, data))
@@ -102,8 +115,9 @@ def one_time(fpath='2019-06-19', return_=False):
     """
     绘制单个日期文件夹的数据
     @params fpath: 日期文件夹
+    @params return_: 如果是给more_time函数调用，需要使用True，默认为False
 
-    @return None, 直接绘制图片
+    @return None, 直接绘制图片；或者data_lst
     """
     f_lst = os.listdir(fpath)
 

@@ -3,20 +3,20 @@ import pandas as pd
 import numpy as np
 import os
 import json
-def get_json(fname):
-    return fname.endswith('.json')
 
-
-f_lst = list(filter(get_json, os.listdir()))
+f_lst = list(filter(lambda fname: fname.endswith('.json'), os.listdir()))
 
 # f_lst.sort(key=lambda item: (int(item.split('-')[2]), int(item.split('-')[3])))
-columns=['topic', 'content', 'likeCount', 'repostCount', 'commentCount', 'shareCount']
+columns = [
+    'topic', 'content', 'likeCount', 'repostCount', 'commentCount',
+    'shareCount'
+]
 
 for fname in f_lst:
     if fname.split('.')[0] + '.xlsx' in os.listdir():
         continue
-     
-    with open(f"{fname}","r") as f:
+
+    with open(f"{fname}", "r") as f:
         data = json.load(f)
 
     data_lst = []
@@ -25,7 +25,7 @@ for fname in f_lst:
         count_lst = ['likeCount', 'repostCount', 'commentCount', 'shareCount']
         tmp_dict = {
             'content': item['content'],
-            'topic': item['topic']['content']   
+            'topic': item['topic']['content']
         }
         for count in count_lst:
             if count in item.keys():
@@ -33,7 +33,7 @@ for fname in f_lst:
             else:
                 num = 0
             tmp_dict[count] = num
-            
+
         data_lst.append(tmp_dict)
 
     df = pd.DataFrame(data_lst, columns=columns)
