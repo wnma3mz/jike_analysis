@@ -43,6 +43,10 @@
 
 统计热门帖子的发帖地点，并由此得到绘制热力图数据(map.xlsx)，根据[高德平台](<https://lbs.amap.com/dev/index>)绘制热力图。
 
+### count_gender.py
+
+统计发帖用户的性别比例，可视化结果见`example\count_gender.png`
+
 ### 部分示例图
 
 `plot_id.py`绘制的某帖图片
