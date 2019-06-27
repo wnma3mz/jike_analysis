@@ -13,11 +13,7 @@
 
 `spider.py`：爬虫文件，由于过于简单，故不介绍
 
-`2019-06-15-23.json`：示例json文件
-
-`2019-06-15-23.xlsx`：示例excel文件
-
-`map.xlsx`：示例map文件
+`example/`：示例文件。`2019-06-15-23.json`：示例json文件；`2019-06-15-23.xlsx`：示例excel文件；`map.xlsx`：示例map文件；`Thermal map.png`：示例热力图
 
 ### ToExcel.py
 
@@ -35,11 +31,25 @@
 
 统计热门帖子的发帖地点，并由此得到绘制热力图数据(map.xlsx)，根据[高德平台](<https://lbs.amap.com/dev/index>)绘制热力图。
 
+### 部分示例图
+
+`plot_id.py`绘制的某帖图片
+
+![example](https://raw.githubusercontent.com/wnma3mz/jike_analysis/master/2019-06-16/18-09-54-03-pics/%E4%B8%80%E8%B5%B7%E7%9C%8B%E7%BA%AA%E5%BD%95%E7%89%87.png)
+
+`get_map_data.py`提取的数据，根据高德开放平台绘制的热力图
+
+![](https://raw.githubusercontent.com/wnma3mz/jike_analysis/master/example/Thermal map.png)
+
 ### 写在最后
 
 1. 如果有运行错误或者不能理解的地方欢迎提issue
 2. 如果你有好的idea想要跟我分享也欢迎提issue或者直接发邮件至wnma3mz@gmail.com
 3. 数据并不完全开放，如有定制需求或商业合作（包括不局限于爬虫、数据分析与挖掘、开发等），请直接发邮件wnma3mz@gmail.com
+
+### 声明
+
+本项目仅供交流学习
 
 ### 打赏部分
 
