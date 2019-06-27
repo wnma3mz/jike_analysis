@@ -15,17 +15,29 @@
 
 `example/`：示例文件。`2019-06-15-23.json`：示例json文件；`2019-06-15-23.xlsx`：示例excel文件；`map.xlsx`：示例map文件；`Thermal map.png`：示例热力图
 
+| 变量         | 说明                                     |
+| ------------ | ---------------------------------------- |
+| likeCount    | 点赞数                                   |
+| repostCount  | 分享数（此数据意义不理解，变化波动不大） |
+| commentCount | 评论数                                   |
+| shareCount   | 分享数                                   |
+| commentCount | 发贴用户的关注用户数                     |
+| id           | 每个帖子独一无二的标识码                 |
+
+
 ### ToExcel.py
 
-提取每个json文件的'topic', 'content', 'likeCount', 'repostCount', 'commentCount', 'shareCount'，将其转换为excel表格
+提取每个json文件的'topic', 'content', 'likeCount', 'repostCount', 'commentCount', 'shareCount'，将其转换为excel表格。
 
 ### plot_id.py
 
-将其放入每天的json文件夹中，绘制'likeCount', 'repostCount', 'commentCount', 'shareCount', 'followedCount'随时间变化的曲线
+将其放入每天的json文件夹中，绘制'likeCount', 'repostCount', 'commentCount', 'shareCount', 'followedCount'随时间变化的曲线。
 
 ### count_title.py
 
-统计所有文件夹下的json文件的出现频率高的话题圈
+1. 统计所有文件夹下的json文件的出现频率高的话题圈
+2. 绘制某天所有topic的关注人数的柱状图
+3. 绘制所有日期文件夹下的topic的关注人数随时间变化的折线图
 
 ### get_map_data.py
 
@@ -36,6 +48,10 @@
 `plot_id.py`绘制的某帖图片
 
 ![example](https://raw.githubusercontent.com/wnma3mz/jike_analysis/master/2019-06-16/27-11-03-18-pics/PC玩家俱乐部-5d04496d9e840c00185c8fc4.png)
+
+`count_title.py`绘制的随日期变化的topic关注人数变化图
+
+![](https://raw.githubusercontent.com/wnma3mz/jike_analysis/master/example/count_title.png)
 
 `get_map_data.py`提取的数据，根据高德开放平台绘制的热力图
 
