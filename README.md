@@ -39,7 +39,7 @@
 
 `get_map_data.py`提取的数据，根据高德开放平台绘制的热力图
 
-![](https://raw.githubusercontent.com/wnma3mz/jike_analysis/master/example/Thermal map.png)
+![](https://raw.githubusercontent.com/wnma3mz/jike_analysis/master/example/heat_map.png)
 
 ### 写在最后
 
