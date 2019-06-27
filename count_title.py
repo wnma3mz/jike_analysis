@@ -19,7 +19,11 @@ def get_column_data(lst, col):
 
 
 def get_title_lst(num):
+    """
+    @params num: 阈值，每天（24个文件）出现次数大于num次的topic被记录
 
+    @return ff: 日期目录列表, res_lst: topic列表
+    """
     flst = os.listdir()
     ff = list(
         filter(lambda f: os.path.isdir(f) and '2019' in f and '06-20' not in f,
@@ -37,7 +41,7 @@ def get_title_lst(num):
                 break
         fpath = os.listdir(os.path.join(f, dir_name))
 
-        title_lst += list(map(lambda f: f.split('.')[0], fpath))
+        title_lst += list(map(lambda f: f.split('.')[0].split('-'), fpath))
 
     title_dict = Counter(title_lst).items()
     res_lst = list(filter(lambda item: item[1] >= num, title_dict))
@@ -46,6 +50,9 @@ def get_title_lst(num):
 
 
 def plot_main(lst, label=False):
+    """
+    绘制图片
+    """
     plt.cla()
 
     x_lst = get_column_data(lst, 0)
@@ -63,6 +70,10 @@ def plot_main(lst, label=False):
 
 
 def one_time(x_lst):
+    """
+    获取某个日期文件夹的数据
+    @params x_lst:
+    """
     data_dict = {name: 0 for name in x_lst}
     fpath = '2019-06-19'
     f_lst = os.listdir(fpath)
@@ -84,6 +95,9 @@ def one_time(x_lst):
 
 
 def more_time(x_lst, ff_lst):
+    """
+    获取多个日期文件夹的数据
+    """
     data_dict = {name: [] for name in x_lst}
 
     for num_count, ff in enumerate(ff_lst):

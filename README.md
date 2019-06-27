@@ -35,7 +35,7 @@
 
 `plot_id.py`绘制的某帖图片
 
-![example](https://raw.githubusercontent.com/wnma3mz/jike_analysis/master/2019-06-16/18-09-54-03-pics/%E4%B8%80%E8%B5%B7%E7%9C%8B%E7%BA%AA%E5%BD%95%E7%89%87.png)
+![example](https://raw.githubusercontent.com/wnma3mz/jike_analysis/master/2019-06-16/27-11-03-18-pics/PC玩家俱乐部-5d04496d9e840c00185c8fc4.png)
 
 `get_map_data.py`提取的数据，根据高德开放平台绘制的热力图
 
