@@ -47,6 +47,10 @@
 
 统计发帖用户的性别比例，可视化结果见`example\count_gender.png`
 
+### graph.py
+
+绘制关系图，每个topic对应的关系用户，用图谱的方式显示出来，结果见`example\graph.html`，本地双击用浏览器打开即可。可直接用`graph.py`代码生成
+
 ### 部分示例图
 
 `plot_id.py`绘制的某帖图片
